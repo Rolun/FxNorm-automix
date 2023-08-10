@@ -601,7 +601,7 @@ if __name__ == '__main__':
             for k, out in enumerate(audio_output_save):
                 audio = audio_out[k, 0, ...]
                 if max_samplingrate not in accepted_sampling_rates:
-                    audio = librosa.resample(audio, SR, max_samplingrate, res_type='kaiser_best')
+                    audio = librosa.resample(audio, orig_sr=SR, target_sr=max_samplingrate, res_type='kaiser_best')
                 save_wav(output_name, max_samplingrate, audio.T, subtype=max_subtype)
                 del audio
 
