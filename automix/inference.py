@@ -7,6 +7,11 @@ TL21
 import os
 
 import sys
+# Add the top-level directory to the path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+top_dir = os.path.abspath(os.path.join(current_dir, '..'))
+sys.path.append(top_dir)
+
 import numpy as np
 import scipy
 import argparse
@@ -425,7 +430,7 @@ if __name__ == '__main__':
                          use_amp=config['USE_AMP'])
 
         # Transfer model to the GPU
-        super_net.to('cuda')
+        #super_net.to('cuda')
         super_net.eval()
 
         if config['QUANTIZATION_OP'] is not None:
@@ -447,6 +452,7 @@ if __name__ == '__main__':
     subtype = []
     samplingrate = []
     audio = [None] * len(STEMS)
+    print(os.getcwd())
     for k, inp in enumerate(STEMS):
         
         if audio_path[inp]:
@@ -485,7 +491,7 @@ if __name__ == '__main__':
                 conversion_scale = 1. / (1. + np.iinfo(temp_audio.dtype).max)
                 temp_audio = temp_audio.astype(dtype=np.float32) * conversion_scale
 
-                temp_audio = librosa.resample(temp_audio.T, _samplingrate, SR, res_type='kaiser_best').T
+                temp_audio = librosa.resample(temp_audio.T, orig_sr=_samplingrate, target_sr=SR, res_type='kaiser_best').T
 
                 temp_audio = temp_audio * (1 + np.iinfo(dtype).max)
                 if np.min(temp_audio) < np.iinfo(dtype).min or np.max(temp_audio) > np.iinfo(dtype).max:
@@ -581,7 +587,7 @@ if __name__ == '__main__':
         with torch.no_grad():
 
             # move the input data to the GPUs
-            test_data = test_data.to(f'cuda:{0}') 
+            #test_data = test_data.to(f'cuda:{0}') 
 
             test_out = super_net.inference(test_data)
 

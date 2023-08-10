@@ -26,16 +26,22 @@ NET="ours_S_Lb" # Model name
 
 # Inference for automatic mixing of dry stems
 python ../automix/inference.py --vocals dry_vocals.wav \
-                    --bass dry_bass.wav \
-                    --drums dry_drums.wav \
-                    --other dry_other.wav \
                     --output ../mixes/mix_from_dry_stems.wav \
-                    --training-params ${CONFIGS_FOLDER}/${NET}.py \
-                    --impulse-responses ${PATH_IR} \
                     --pre-impulse-responses ${PATH_PRE_IR} \
                     --nets ${MODELS_FOLDER}/${NET}/net_mixture.dump \
                     --weights ${MODELS_FOLDER}/${NET}/best_model_for_mixture_valid_stereo_loss_mean.params \
                     --features ${PATH_FEATURES}/features_MUSDB18.npy 
+# python ../automix/inference.py --vocals dry_vocals.wav \
+#                     --bass dry_bass.wav \
+#                     --drums dry_drums.wav \
+#                     --other dry_other.wav \
+#                     --output ../mixes/mix_from_dry_stems.wav \
+#                     --training-params ${CONFIGS_FOLDER}/${NET}.py \
+#                     --impulse-responses ${PATH_IR} \
+#                     --pre-impulse-responses ${PATH_PRE_IR} \
+#                     --nets ${MODELS_FOLDER}/${NET}/net_mixture.dump \
+#                     --weights ${MODELS_FOLDER}/${NET}/best_model_for_mixture_valid_stereo_loss_mean.params \
+#                     --features ${PATH_FEATURES}/features_MUSDB18.npy 
 
 # # Inference for automatic mixing of wet stems
 # python ../automix/inference.py --vocals wet_vocals.wav \
