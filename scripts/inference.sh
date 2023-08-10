@@ -25,9 +25,9 @@ PATH_FEATURES="../trainings/features" # Path to average features file
 NET="ours_S_Lb" # Model name
 
 # Inference for automatic mixing of dry stems
-python ../automix/inference.py --vocals dry_vocals.wav \
+python ../automix/inference.py --vocals test.wav \
                     --output ../mixes/mix_from_dry_stems.wav \
-                    --pre-impulse-responses ${PATH_PRE_IR} \
+                    --training-params ${CONFIGS_FOLDER}/${NET}.py \
                     --nets ${MODELS_FOLDER}/${NET}/net_mixture.dump \
                     --weights ${MODELS_FOLDER}/${NET}/best_model_for_mixture_valid_stereo_loss_mean.params \
                     --features ${PATH_FEATURES}/features_MUSDB18.npy 
