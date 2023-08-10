@@ -328,7 +328,7 @@ def get_mean_peak(audio, sr=44100, true_peak=False, n_mels=128, percentile=75):
             
         onset_func = aubio.onset('hfc', buf_size=window_size, hop_size=hop_size, samplerate=sr)
 
-        frames = librosa.util.frame(x, window_size, hop_size)
+        frames = librosa.util.frame(x, frame_length=window_size, hop_length=hop_size)
         
         onset_times = []
         for frame in frames.T:

@@ -430,7 +430,7 @@ if __name__ == '__main__':
                          use_amp=config['USE_AMP'])
 
         # Transfer model to the GPU
-        super_net.to('cuda')
+        # super_net.to('cuda')
         super_net.eval()
 
         if config['QUANTIZATION_OP'] is not None:
@@ -587,7 +587,7 @@ if __name__ == '__main__':
         with torch.no_grad():
 
             # move the input data to the GPUs
-            test_data = test_data.to(f'cuda:{0}') 
+            # test_data = test_data.to(f'cuda:{0}') 
 
             test_out = super_net.inference(test_data)
 
