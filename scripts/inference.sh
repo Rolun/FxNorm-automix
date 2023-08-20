@@ -14,8 +14,8 @@ CONFIGS_FOLDER="../configs/ISMIR" # "/path to folder with configs files"
 # The data loader expects each IR to be in an individual folder and named impulse_response.wav
 # e.g. /path/to/IR/impulse-response-001/impulse_response.wav
 # Stereo or Mono are supported
-PATH_IR="/path/to/IR" # IRs for data augmentation
-PATH_PRE_IR="/path/to/PRE_IR" # IRs for data pre-augmentation of dry stems
+PATH_IR="Sonic_Palimpsest-Impulse_Response_Library" # IRs for data augmentation
+PATH_PRE_IR="Sonic_Palimpsest-Impulse_Response_Library" # IRs for data pre-augmentation of dry stems
 
 mkdir "${OUTPUT_FOLDER}"
 
@@ -28,6 +28,8 @@ NET="ours_S_Lb" # Model name
 python ../automix/inference.py --vocals test.wav \
                     --output ../mixes/mix_from_dry_stems.wav \
                     --training-params ${CONFIGS_FOLDER}/${NET}.py \
+                    --impulse-responses ${PATH_IR} \
+                    --pre-impulse-responses ${PATH_PRE_IR} \
                     --nets ${MODELS_FOLDER}/${NET}/net_mixture.dump \
                     --weights ${MODELS_FOLDER}/${NET}/best_model_for_mixture_valid_stereo_loss_mean.params \
                     --features ${PATH_FEATURES}/features_MUSDB18.npy 
