@@ -14,8 +14,8 @@ CONFIGS_FOLDER="../configs/ISMIR" # "/path to folder with configs files"
 # The data loader expects each IR to be in an individual folder and named impulse_response.wav
 # e.g. /path/to/IR/impulse-response-001/impulse_response.wav
 # Stereo or Mono are supported
-PATH_IR="Sonic_Palimpsest-Impulse_Response_Library" # IRs for data augmentation
-PATH_PRE_IR="Sonic_Palimpsest-Impulse_Response_Library" # IRs for data pre-augmentation of dry stems
+PATH_IR="/root/Sonic_Palimpsest-Impulse_Response_Library" # IRs for data augmentation
+PATH_PRE_IR="/root/Sonic_Palimpsest-Impulse_Response_Library" # IRs for data pre-augmentation of dry stems
 
 mkdir "${OUTPUT_FOLDER}"
 
