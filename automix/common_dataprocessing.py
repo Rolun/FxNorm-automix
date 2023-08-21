@@ -34,6 +34,7 @@ def load_wav(file_path, mmap=False, convert_float=False, accepted_sampling_rates
     print(accepted_sampling_rates)
     if accepted_sampling_rates and fs not in accepted_sampling_rates:
         samples = librosa.resample(samples.astype(np.float32), orig_sr=fs, target_sr=max(accepted_sampling_rates)).astype(samples.dtype)
+        fs = max(accepted_sampling_rates)
 
     # ensure that we have a 2d array (monaural files are just loaded as vectors)
     if samples.ndim == 1:
