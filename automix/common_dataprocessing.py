@@ -17,7 +17,7 @@ from automix.common_audioeffects import AugmentationChain
 from automix.common_miscellaneous import uprint
 
 
-def load_wav(file_path, mmap=False, convert_float=False, sr=False):
+def load_wav(file_path, mmap=False, convert_float=False, accepted_sampling_rates=[]):
     """
     Load a WAV file in C_CONTIGUOUS format.
 
@@ -29,10 +29,11 @@ def load_wav(file_path, mmap=False, convert_float=False, sr=False):
         fs: Sample rate
         samples: Numpy array (np.int16 or np.int32) with audio [n_samples x n_channels]
     """
-    if sr:
-        samples, fs = librosa.load(file_path, sr=sr) 
-    else:
-        fs, samples = wav.read(file_path, mmap=mmap)
+
+    fs, samples = wav.read(file_path, mmap=mmap)
+
+    if fs not in accepted_sampling_rates:
+        librosa.resample(samples, orig_sr=fs, target_sr=max(accepted_sampling_rates))
 
     # ensure that we have a 2d array (monaural files are just loaded as vectors)
     if samples.ndim == 1:
@@ -158,7 +159,7 @@ def create_dataset(path, accepted_sampling_rates, sources, mapped_sources, n_cha
                     src_name = mapped_sources[src_name]
                 uprint(f'\tAdding function handle for "{src_name}" from file {f}')
 
-                _data = load_wav(os.path.join(path, d, f), mmap=not load_to_memory, sr = max(accepted_sampling_rates))
+                _data = load_wav(os.path.join(path, d, f), mmap=not load_to_memory, accepted_sampling_rates = accepted_sampling_rates)
 
                 # determine properties from loaded data
                 _samplingrate = _data[0]
