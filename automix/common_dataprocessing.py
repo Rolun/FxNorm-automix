@@ -30,7 +30,7 @@ def load_wav(file_path, mmap=False, convert_float=False, sr=False):
         samples: Numpy array (np.int16 or np.int32) with audio [n_samples x n_channels]
     """
     if sr:
-        fs, samples = librosa.load(file_path, sr=sr) 
+        samples, fs = librosa.load(file_path, sr=sr) 
     else:
         fs, samples = wav.read(file_path, mmap=mmap)
 
